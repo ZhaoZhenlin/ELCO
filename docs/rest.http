@@ -1,0 +1,201 @@
+
+
+
+
+@host = sps2018.iothub.monkey-works.de
+
+# @name login
+POST /v0/user/login HTTP/1.1
+Host: {{host}}
+Content-Type: application/json
+
+{
+  "username":"root",
+  "password":"toor"
+}
+
+
+###
+@authToken = {{login.response.body.Token}}
+
+# @name getDevices
+GET /v0/things HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+###
+
+###
+@authToken = {{login.response.body.Token}}
+
+# @name getDevicesShort
+GET /v0/things?small=true HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+###
+
+@deviceId = 504403158265495558
+
+# @name getDevice
+GET /v0/things/{{deviceId}} HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+###
+
+# @name deleteDevice
+DELETE /v0/things/{{deviceId}} HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+
+###
+
+# @name addDevice
+POST /v0/things HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+  "name": "HalloMicha",
+  "@type": [
+    "s7"
+  ]
+}
+
+###
+
+# @name getProperties
+GET /v0/things/{{deviceId}}/properties HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+###
+
+# @name addProperty
+POST /v0/things/{{deviceId}}/properties HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+  "name":"DB1015.DBX16.3",
+  "type":"boolean",
+  "observable":true
+}
+
+
+@property="I0.0"
+###
+
+# @name writeProperty
+PUT /v0/things/{{deviceId}}/properties/{{property}} HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+  "value" : {"DK1": []}
+}
+
+
+# @name getWorkflows
+GET /v0/workflows HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+###
+@workflowId = 2
+# @name getWorkflow
+GET /v0/workflows/{{workflowId}} HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+###
+
+# @name startWorkFlow
+PATCH /v0/workflows HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+    "Id": "{{workflowId}}",
+    "Running": "true"
+}
+###
+
+# @name stopWorkflow
+PATCH /v0/workflows HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+    "Id": "{{workflowId}}",
+    "Running": "false"
+}
+
+###
+
+# @name deleteWorkflow
+DELETE /v0/workflows/{{workflowId}} HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+###
+
+# @name getWorkflowStdOut
+GET /v0/workflows/{{workflowId}}/stdout HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+###
+
+
+# @name addS7Device
+POST /v0/things HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+    "@type":"s7",
+    "name":"DK10"
+}
+
+###
+
+
+# @name connectS7Device
+POST /v0/things/{{deviceId}}/actions HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+  "connect":{}
+}
+
+###
+
+# @name disconnects7Device
+POST /v0/things/{{deviceId}}/actions HTTP/1.1
+Host: {{host}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+  "disconnect":{}
+}

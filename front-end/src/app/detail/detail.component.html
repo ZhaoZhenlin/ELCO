@@ -1,0 +1,108 @@
+<mat-grid-list cols="2" rowHeight="4:1">
+    <mat-grid-tile>
+        <i class="material-icons fontStyleBlack">memory</i>
+        <h4 class="detail-header">{{device.name}}</h4>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <!-- 返回设备列表按钮 -->
+        <div class="alternate2-theme">
+            <button mat-mini-fab color="primary" routerLink="/device">
+                <i class="material-icons fontStyle">reply</i>
+            </button>
+        </div>
+        <!-- 添加属性按钮 -->
+        <button mat-mini-fab (click)="addPropHandler()">
+            <i class="material-icons fontStyle">add</i>
+        </button>
+        <!-- 删除属性按钮 -->
+        <button mat-mini-fab color="warn" (click)="removePropHandler()" [disabled]="currentCheckedProp == ''">
+            <i class="material-icons fontStyle">remove</i>
+        </button>
+        <!-- 删除设备按钮 -->
+        <div class="alternate-theme">
+            <button mat-mini-fab color="warn" (click)="deleteDeviceHandler()">
+                <i class="material-icons fontStyle">delete</i>
+            </button>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="2" rowHeight="4:1">
+    <mat-grid-tile>
+            <i class="material-icons fontStyleBlack">wifi</i>
+            <h4 class="detail-header">{{devType}}</h4>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<!-- Sensor Values -->
+<mat-tab-group dynamicHeight>
+    <mat-tab label="Sensor Values">
+
+        <mat-card *ngFor="let prop of sensors" class="item-card">
+            <mat-card-header>
+                <!-- 可写 -->
+                <button mat-mini-fab *ngIf="device.properties[prop].writable">
+                    <i class="material-icons fontStyle">edit</i>
+                </button>
+                <!-- 不可写 -->
+                <div mat-mini-fab *ngIf="!device.properties[prop].writable">
+                    <i class="material-icons fontStyle2">info_outline</i>
+                </div>
+                <!-- 属性名 -->
+                <div class="mat-card-header-text">
+                    <mat-card-title>{{prop}}</mat-card-title>
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+                <form class="width-indent">
+                    <mat-checkbox (ngModelChange)="checkDelete(prop)" [ngModel]="isChecked(prop)" name="del">
+                        check to delete
+                    </mat-checkbox>
+                </form>
+            </mat-card-content>
+        </mat-card>
+
+    </mat-tab>
+
+    <!-- <mat-tab label="State & Configuration">
+        <mat-card *ngFor="let prop of configs" class="item-card">
+            <mat-card-header>
+                <div class="btn" *ngIf="device.properties[prop].writable">
+                    <mat-icon>edit</mat-icon>
+                </div>
+                <mat-icon *ngIf="!device.properties[prop].writable" class="fontStyle">info_outline</mat-icon>
+                <div class="mat-card-header-text">
+                    <mat-card-title>{{prop.split('_')[1]}}</mat-card-title>
+                    <mat-card-title class="tip">{{device.properties[prop].label}}</mat-card-title>
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+                <form class="width-indent">
+                    <mat-checkbox>Check me!</mat-checkbox>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+
+    <mat-tab label="Action & Commands">
+        <mat-card *ngFor="let action of actions" class="item-card">
+            <mat-card-header>
+                <div class="btn">
+                    <mat-icon>play_arrow</mat-icon>
+                </div>
+                <div class="mat-card-header-text">
+                    <mat-card-title>{{action === 'set_rate'?'set polling rate':action}}</mat-card-title>
+                    <mat-card-title class="tip">{{device.actions[action].description}}</mat-card-title>
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+                <form class="width-indent" *ngIf="action==='set_rate'">
+                    <mat-form-field>
+                        <input matInput type="number" />
+                        <mat-hint class="tip">desired polling rate in ms</mat-hint>
+                    </mat-form-field>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab> -->
+</mat-tab-group>

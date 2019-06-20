@@ -1,0 +1,19 @@
+
+<div class="scrollable">
+  <h1 class="scrollable-header">IoTHub</h1>
+  <div class="scrollable-content">
+      <div class="list-group" >
+          <mat-grid-list cols="1" rowHeight="4:1" gutterSize="8" class="device-item" *ngFor='let device of devices'>
+            <mat-grid-tile color="primary" routerLink="/detail/{{device.id}}">
+                <i class="material-icons">memory</i>
+                {{device.name}}
+            </mat-grid-tile>
+          </mat-grid-list>
+        </div>      
+  </div>
+</div>
+
+<div>
+<button id="add" (click)="addDevice()">+</button>
+</div>
+

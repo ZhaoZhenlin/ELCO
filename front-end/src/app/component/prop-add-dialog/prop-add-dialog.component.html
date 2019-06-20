@@ -1,0 +1,67 @@
+<!-- <h1 mat-dialog-title>Add new property to {{device.name}}</h1> -->
+<h1 mat-dialog-title>New property</h1>
+<!-- <div class="my-center-div">
+  <div mat-dialog-content>
+    
+  </div>
+  <div mat-dialog-actions>
+    <button mat-stroked-button (click)="dialogRef.close(false)">Cancel</button>
+    <button mat-raised-button (click)="dialogRef.close(true)" color="warn">Install</button>
+  </div>
+
+
+</div> -->
+
+<mat-card>
+  <!-- deviceAddForm -->
+  <form [formGroup]="form" autocomplete="off" novalidate fxLayout="column wrap" fxLayoutAlign="center center"
+    fxLayoutGap="10px">
+
+    <mat-card-content>
+      <!-- Name -->
+      <mat-form-field>
+        <mat-hint>1-20 characters</mat-hint>
+        <input matInput type="text" placeholder="Name" formControlName="name" id="name">
+        <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+        <mat-error *ngIf="hasError('name', 'maxlength')">1-20 characters</mat-error>
+      </mat-form-field>
+    </mat-card-content>
+
+    <!-- Type -->
+    <mat-card-content>
+      <mat-label>Type</mat-label>
+      <mat-select name="type" formControlName="type" id="type">
+        <mat-option *ngFor="let option of options" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-select>
+      <mat-hint>select one type</mat-hint>
+      <mat-error *ngIf="hasError('type', 'required')">Type is required</mat-error>
+    </mat-card-content>
+
+    <!-- writable -->
+    <mat-card-content>
+      <mat-hint class="my-hint">writable</mat-hint>
+      <mat-button-toggle-group name="writable" formControlName="writable" id="writable">
+        <mat-button-toggle value="true">true</mat-button-toggle>
+        <mat-button-toggle value="false">false</mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-card-content>
+
+    <!-- observable -->
+    <mat-card-content>
+      <mat-hint class="my-hint2">observable</mat-hint>
+      <mat-button-toggle-group name="observable" formControlName="observable" id="observable">
+        <mat-button-toggle value="true">true</mat-button-toggle>
+        <mat-button-toggle value="false">false</mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-card-content>
+
+    <!-- button -->
+    <mat-card-actions>
+      <button mat-stroked-button (click)="dialogRef.close('cancel')">Cancel</button>
+      <button mat-stroked-button (click)="dialogRef.close(form.value)" [disabled]="!form.valid">Install</button>
+    </mat-card-actions>
+  </form>
+
+</mat-card>

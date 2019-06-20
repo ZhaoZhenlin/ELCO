@@ -1,0 +1,17 @@
+.my-hint {
+    margin-right: 60px;
+}
+
+.my-hint2 {
+    margin-right: 40px;
+}
+
+.mat-button-toggle-checked{
+    background-color: #6CB42D;
+}
+
+ mat-button-toggle{
+    min-width: 1%;
+    max-width: 60px;
+    max-height: 32px;
+} 

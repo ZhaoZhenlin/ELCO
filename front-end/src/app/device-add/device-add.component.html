@@ -1,0 +1,49 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+  <!-- mat-card -->
+  <mat-card>
+    <mat-card-header [ngStyle]="{'background-color':'rgb(139, 195, 74)'}">
+      <mat-card-title color="primary">Add new Thing</mat-card-title>
+    </mat-card-header>
+
+    <!-- deviceAddForm -->
+    <form [formGroup]="form" autocomplete="off" novalidate fxLayout="column wrap"
+      fxLayoutAlign="center center" fxLayoutGap="10px">
+
+      <mat-card-content>
+
+        <!-- Type -->
+        <mat-radio-group formControlName="type" id="type">
+          <mat-hint>select one type</mat-hint>
+          <mat-list>
+            <!-- <mat-list-item>
+              <mat-radio-button matInput value="elco-iot">elco-iot</mat-radio-button>
+            </mat-list-item> -->
+            <mat-list-item>
+              <mat-radio-button matInput value="opcua">opcua</mat-radio-button>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-radio-button matInput value="s7">s7</mat-radio-button>
+            </mat-list-item>
+          </mat-list>
+          <mat-error *ngIf="hasError('type', 'required')">Type is required</mat-error>
+        </mat-radio-group>
+
+        <!-- Name -->
+        <mat-form-field>
+          <mat-hint>1-20 characters</mat-hint>
+          <input matInput type="text" placeholder="Name" formControlName="name" id="name">
+          <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+          <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 60 characters</mat-error>
+        </mat-form-field>
+
+      </mat-card-content>
+
+      <!-- button -->
+      <mat-card-actions>
+        <button mat-stroked-button (click)="backToList()">Cancel</button>
+        <button mat-stroked-button (click)="add()" [disabled]="!form.valid">Install</button>
+      </mat-card-actions>
+    </form>
+
+  </mat-card>
+</section>

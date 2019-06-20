@@ -1,0 +1,8 @@
+{
+    "/v0/*": {
+      "target": "https://sps2018.iothub.monkey-works.de/",
+      "secure": false,
+      "logLevel": "debug",
+      "changeOrigin": true
+    }
+}
